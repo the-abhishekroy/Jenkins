@@ -1,11 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Hello DevOps</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Abhishek Roy — Full-Stack Developer</title>
+<style>
+  :root {
+    --bg: #0f1115;
+    --surface: #171a21;
+    --border: #262b35;
+    --text: #e8eaed;
+    --muted: #9aa0ac;
+    --accent: #5b8cff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    line-height: 1.6;
+  }
+  header {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 80px 24px 40px;
+  }
+  header p.eyebrow {
+    color: var(--accent);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 13px;
+    margin-bottom: 12px;
+  }
+  header h1 {
+    font-size: 42px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+  header p.tagline {
+    color: var(--muted);
+    font-size: 18px;
+    max-width: 560px;
+  }
+  nav {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 40px;
+    display: flex;
+    gap: 24px;
+  }
+  nav a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+  }
+  nav a:hover { color: var(--accent); }
+  main {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 24px 80px;
+  }
+  section { margin-bottom: 56px; }
+  section h2 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+  }
+  section p { color: var(--text); max-width: 680px; }
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .tag {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    color: var(--text);
+  }
+  .project {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .project h3 { font-size: 18px; margin-bottom: 8px; }
+  .project p { color: var(--muted); font-size: 15px; }
+  footer {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 40px 24px;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #clock { font-variant-numeric: tabular-nums; }
+</style>
 </head>
 <body>
-  <h1>Hello DevOps!</h1>
-  <p>This page was built by a Jenkins job.</p>
+
+<header>
+  <p class="eyebrow">Hello, DevOps</p>
+  <h1>Abhishek Roy</h1>
+  <p class="tagline">Full-Stack Developer building scalable web apps, cloud-native backends, and AI-powered products.</p>
+</header>
+
+<nav>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<main>
+  <section id="about">
+    <h2>About</h2>
+    <p>Full-Stack Developer and CSE student, focused on scalable web applications, cloud-native backends, and AI-powered products. This page is a static build artifact produced and archived by a Jenkins job as part of a CI/CD training exercise.</p>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <div class="tags">
+      <span class="tag">React</span>
+      <span class="tag">Node.js</span>
+      <span class="tag">TypeScript</span>
+      <span class="tag">Python</span>
+      <span class="tag">Docker</span>
+      <span class="tag">Kubernetes</span>
+      <span class="tag">Terraform</span>
+      <span class="tag">Jenkins</span>
+      <span class="tag">AWS</span>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>Projects</h2>
+    <div class="project">
+      <h3>CI/CD Training Pipeline</h3>
+      <p>A Jenkins Freestyle job that clones this repo, builds this page into a build/ folder, and archives it as a versioned artifact.</p>
+    </div>
+    <div class="project">
+      <h3>Terraform-Managed Infrastructure</h3>
+      <p>AWS infrastructure (EC2, RDS, VPC, S3) and Jenkins jobs, both defined and managed as code.</p>
+    </div>
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p>Reach out via GitHub or LinkedIn for collaboration and freelance work.</p>
+  </section>
+</main>
+
+<footer>
+  <span>Built with a single self-contained HTML file — no external CSS or JS.</span>
+  <span id="clock"></span>
+</footer>
+
+<script>
+  function tick() {
+    document.getElementById('clock').textContent = new Date().toLocaleString();
+  }
+  tick();
+  setInterval(tick, 1000);
+</script>
+
 </body>
 </html>
