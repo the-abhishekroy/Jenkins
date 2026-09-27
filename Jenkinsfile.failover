@@ -1,0 +1,55 @@
+pipeline {
+    agent any
+
+    environment {
+        PRIMARY_REPO  = 'https://github.com/the-abhishekroy/this-repo-does-not-exist-xyz.git'
+        FALLBACK_REPO = 'https://github.com/the-abhishekroy/Jenkins.git'
+    }
+
+    stages {
+        stage('Clone (with fallback)') {
+            steps {
+                script {
+                    dir('workspace') { deleteDir() }
+
+                    def primaryOk = true
+                    try {
+                        echo "Attempting to clone primary repo: ${env.PRIMARY_REPO}"
+                        dir('workspace') {
+                            sh "git clone --depth 1 ${env.PRIMARY_REPO} ."
+                        }
+                    } catch (Exception e) {
+                        primaryOk = false
+                        echo "Primary repo unreachable: ${e.getMessage()}"
+                    }
+
+                    if (!primaryOk) {
+                        echo "Falling back to secondary repo: ${env.FALLBACK_REPO}"
+                        dir('workspace') {
+                            sh "git clone --depth 1 ${env.FALLBACK_REPO} ."
+                        }
+                        env.REPO_USED = 'fallback'
+                    } else {
+                        env.REPO_USED = 'primary'
+                    }
+                }
+            }
+        }
+
+        stage('Report') {
+            steps {
+                echo "Repo actually used for this build: ${env.REPO_USED}"
+                sh 'ls -la workspace'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo "Pipeline succeeded using the ${env.REPO_USED} repo."
+        }
+        failure {
+            echo "Pipeline failed — both primary and fallback repos were unreachable."
+        }
+    }
+}
