@@ -12,14 +12,34 @@ pipeline {
             steps {
                 echo "Starting build"
                 sh 'mkdir -p build'
-                sh 'cp index.html build/'
+                script {
+                    if (fileExists('index.html')) {
+                        sh 'cp index.html build/'
+                        env.BUILD_HAD_OUTPUT = 'true'
+                    } else {
+                        echo "index.html not found — skipping copy"
+                        env.BUILD_HAD_OUTPUT = 'false'
+                    }
+                }
                 echo "Build completed"
             }
         }
 
         stage('Archive') {
+            when {
+                environment name: 'BUILD_HAD_OUTPUT', value: 'true'
+            }
             steps {
                 archiveArtifacts artifacts: 'build/**', fingerprint: true
+            }
+        }
+
+        stage('Archive skipped notice') {
+            when {
+                environment name: 'BUILD_HAD_OUTPUT', value: 'false'
+            }
+            steps {
+                echo "Skipping archive — nothing was built"
             }
         }
     }
